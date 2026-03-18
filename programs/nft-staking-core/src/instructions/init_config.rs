@@ -8,7 +8,9 @@ use crate::errors::StakingError;
 pub struct InitConfig<'info> {
     #[account(mut)]
     pub admin: Signer<'info>,
+    /// CHECK: Metaplex Core collection account
     pub collection: UncheckedAccount<'info>,
+    /// CHECK: PDA authority seed-derived
     #[account(
         seeds = [b"prog_auth", collection.key().as_ref()],
         bump

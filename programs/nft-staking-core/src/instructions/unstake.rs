@@ -17,6 +17,7 @@ const SECONDS_PER_DAY: i64 = 86400;
 pub struct Unstake<'info> {
     #[account(mut)]
     pub stakeholder: Signer<'info>,
+    /// CHECK: PDA authority seed-derived
     #[account(
         seeds = [b"prog_auth", collection.key().as_ref()],
         bump
@@ -40,10 +41,13 @@ pub struct Unstake<'info> {
         associated_token::authority = stakeholder,
     )]
     pub stakeholder_ata: InterfaceAccount<'info, TokenAccount>,
+    /// CHECK: Metaplex Core asset account
     #[account(mut)]
     pub asset: UncheckedAccount<'info>,
+    /// CHECK: Metaplex Core collection account
     #[account(mut)]
     pub collection: UncheckedAccount<'info>,
+    /// CHECK: Metaplex Core program ID
     #[account(address = MPL_CORE_ID)]
     pub mpl_core_program: UncheckedAccount<'info>,
     pub system_program: Program<'info, System>,

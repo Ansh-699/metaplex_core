@@ -13,14 +13,17 @@ pub struct Mint<'info> {
     pub payer: Signer<'info>,
     #[account(mut)]
     pub asset: Signer<'info>,
+    /// CHECK: Metaplex Core collection account
     #[account(mut)]
     pub collection: UncheckedAccount<'info>,
+    /// CHECK: PDA authority seed-derived
     #[account(
         seeds = [b"prog_auth", collection.key().as_ref()],
         bump
     )]
     pub prog_auth: UncheckedAccount<'info>,
     pub system_program: Program<'info, System>,
+    /// CHECK: Metaplex Core program ID
     #[account(address = MPL_CORE_ID)]
     pub mpl_core_program: UncheckedAccount<'info>,
 }

@@ -19,6 +19,7 @@ const FAT_BONUS: u64 = 10_000_000_000_000; // 10K tokens
 pub struct BurnStakedNFT<'info> {
     #[account(mut)]
     pub stakeholder: Signer<'info>,
+    /// CHECK: PDA authority seed-derived
     #[account(
         seeds = [b"prog_auth", collection.key().as_ref()],
         bump
@@ -42,10 +43,13 @@ pub struct BurnStakedNFT<'info> {
         associated_token::authority = stakeholder,
     )]
     pub stakeholder_ata: InterfaceAccount<'info, TokenAccount>,
+    /// CHECK: Metaplex Core asset account
     #[account(mut)]
     pub asset: UncheckedAccount<'info>,
+    /// CHECK: Metaplex Core collection account
     #[account(mut)]
     pub collection: UncheckedAccount<'info>,
+    /// CHECK: Metaplex Core program ID
     #[account(address = MPL_CORE_ID)]
     pub mpl_core_program: UncheckedAccount<'info>,
     pub system_program: Program<'info, System>,
